@@ -1,0 +1,22 @@
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Entornos locales
+.env
+*.env
+
+# Archivos de caché y logs
+application/logs/
+application/cache/
+
+# Composer / Node
+vendor/
+node_modules/
+
+# IDEs / editores
+.vscode/
+.idea/
+*.sublime-project
+*.sublime-workspace
+

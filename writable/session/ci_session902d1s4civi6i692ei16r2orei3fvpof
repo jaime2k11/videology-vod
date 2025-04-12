@@ -1,0 +1,5 @@
+__ci_last_regenerate|i:1743617275;_ci_previous_url|s:22:"http://localhost:8080/";error|s:799:"Error al subir: Error executing "PutObject" on "https://videology-vod.s3.eu-west-2.amazonaws.com/videos/1743610180_31c1487bdf42348aad57.mp4"; AWS HTTP error: Client error: `PUT https://videology-vod.s3.eu-west-2.amazonaws.com/videos/1743610180_31c1487bdf42348aad57.mp4` resulted in a `400 Bad Request` response:
+<?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>AccessControlListNotSupported</Code><Message>The bucket does not all (truncated...)
+ AccessControlListNotSupported (client): The bucket does not allow ACLs - <?xml version="1.0" encoding="UTF-8"?>
+<Error><Code>AccessControlListNotSupported</Code><Message>The bucket does not allow ACLs</Message><RequestId>B3ZN27JVXFDFYKFB</RequestId><HostId>0PKmkJ4CVWL4SzuA46IkR+bbTHtOTrzbT1yN1iQ00UuKfTqlCrLzvjxJ5+z6Bhg/t+yoD4dnHQ8=</HostId></Error>";__ci_vars|a:1:{s:5:"error";s:3:"old";}
