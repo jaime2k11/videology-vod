@@ -9,6 +9,7 @@ Thumbs.db
 # Archivos de caché y logs
 application/logs/
 application/cache/
+writable/
 
 # Composer / Node
 vendor/
