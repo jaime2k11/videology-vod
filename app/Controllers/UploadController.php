@@ -21,6 +21,10 @@ class UploadController extends Controller
         ]);
     }
 
+    public function test(){
+        return "Funciona correctamente desde CLI 🚀";
+    }
+
     public function index()
     {
         return view('upload_form');
