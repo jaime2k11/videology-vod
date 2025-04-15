@@ -59,27 +59,40 @@ class UploadController extends Controller
     public function list()
     {
         $bucket = getenv('AWS_OUTPUT_BUCKET');
+        $cloudfrontUrl = rtrim(getenv('CLOUDFRONT_URL'), '/');
+        $videos = [];
         try {
             $result = $this->s3->listObjects([
                 'Bucket' => $bucket,
                 'Prefix' => 'videos/'
             ]);
 
-            $videos = [];
             if (isset($result['Contents'])) {
                 foreach ($result['Contents'] as $object) {
-                    if (strpos($object['Key'], '.m3u8') !== false) {
-                        $videoName = explode('/', $object['Key']);
-                        $videoName = end($videoName);
-                        $cloudfrontUrl = getenv('CLOUDFRONT_URL');
-                        $videoPath = $object['Key']; // Ruta del video en S3 (sin el bucket)
-                        // Construye la URL final con CloudFront
-                        $videoUrl = rtrim($cloudfrontUrl, '/') . '/' . ltrim($videoPath, '/');
+                    $key = $object['Key'];
 
-                        $videos[] = [
-                            'name' => $videoName,
-                            'url' => $videoUrl
-                        ];
+                    if (str_ends_with($key, '.m3u8')) {
+                        $parts = explode('/', $key);
+                        $baseId = $parts[1]; // carpeta base del video
+                        $filename = basename($key); // e.g., 1743617263_65850cafbd986115ec24_720p.m3u8
+
+                        // Separar resolución al final del nombre antes de la extensión
+                        $filenameWithoutExt = str_replace('.m3u8', '', $filename);
+                        $underscorePos = strrpos($filenameWithoutExt, '_');
+                        $baseName = substr($filenameWithoutExt, 0, $underscorePos);
+                        $resolution = substr($filenameWithoutExt, $underscorePos + 1);
+
+                        // URL final
+                        $videoUrl = rtrim($cloudfrontUrl, '/') . '/' . ltrim($key, '/');
+
+                        // Agrupar resoluciones bajo el mismo video
+                        if(in_array($resolution, ['360p', '480p', '720p', '1080p'])){
+                            $videos[$baseId]['resolutions'][$resolution] = $videoUrl;
+                        }
+                        else{
+                            $videos[$baseId]['base_name'] = $baseName;
+                            $videos[$baseId]['url'] = $videoUrl;
+                        }
                     }
                 }
             }
