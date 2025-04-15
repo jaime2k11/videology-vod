@@ -66,7 +66,9 @@
                     player_<?= $count; ?>.on('loadedmetadata', function () {
                         player_<?= $count; ?>.currentTime(currentTime);
                         if (!isPaused) {
-                            player_<?= $count++; ?>.play();
+                            player_<?= $count; ?>.play();
+                        }else{
+                            player_<?= $count++; ?>.pause();
                         }
                     }); });
             </script>
