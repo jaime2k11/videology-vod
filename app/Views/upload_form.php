@@ -3,6 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <title>Subir Video</title>
+    <style>
+        html {
+          font-family: Arial, sans-serif;
+        }
+    </style>
 </head>
 <body>
     <h1>Subir Video</h1>
