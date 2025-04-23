@@ -52,8 +52,15 @@ class UploadController extends Controller
         } catch (\Exception $e) {
             return redirect()->to('/')->with('error', 'Error al subir: ' . $e->getMessage());
         }
+        // Generar la URL final (por ahora asumimos nombre base sin extensión)
+        $nameWithoutExt = pathinfo($filename, PATHINFO_FILENAME);
+        $m3u8_url = rtrim($_ENV['CLOUDFRONT_URL'], '/') . "/videos/$nameWithoutExt/hls/$nameWithoutExt.m3u8";
 
-        return redirect()->to('/videos')->with('success', 'Video subido con éxito.');
+        // Devolver como respuesta JSON
+        return $this->response->setJSON([
+            'status' => 'success',
+            'url' => $m3u8_url
+        ]);
     }
 
     public function list()
